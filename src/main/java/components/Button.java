@@ -1,5 +1,7 @@
 package components;
 
-public class Button{
+import base.Component;
+
+public class Button extends Component {
 
 }

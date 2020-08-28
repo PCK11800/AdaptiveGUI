@@ -79,12 +79,13 @@ public class Frame extends RenderWindow {
     {
         if(!size.equals(getSize()))
         {
-            //Handle window resize
-            /*
-             * 
-             */
+            Specifications.CURRENT_SIZE = getSize();
+            for(Component component : components)
+            {
+                component.resize();
+            }
+            Specifications.PREVIOUS_SIZE = getSize();
         }
-
         return getSize();
     }
 
@@ -96,7 +97,10 @@ public class Frame extends RenderWindow {
         {
             frameStart();
             refreshComponents();
+
+            //Size Handling
             windowSize = handleResize(windowSize);
+
             frameEnd();
         }
     }
