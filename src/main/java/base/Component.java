@@ -16,6 +16,7 @@ public class Component extends RectangleShape {
     protected float x, y, width, height, xCenter, yCenter, direction;
     protected Texture texture;
     protected String texturePath;
+    protected boolean isVisible = true; //Default true
 
     public void setComponentTexture(String texturePath)
     {
@@ -250,4 +251,13 @@ public class Component extends RectangleShape {
     public float getDirection() { return direction; }
 
     public String getTexturePath() { return texturePath; }
+
+    public void setVisible(boolean isVisible)
+    {
+        this.isVisible = isVisible;
+    }
+
+    public boolean isVisible() { return isVisible; }
+
+    public void refresh(Frame frame) { frame.draw(this); }
 }

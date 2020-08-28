@@ -50,7 +50,10 @@ public class Frame extends RenderWindow {
     {
         for(Component component : components)
         {
-            draw(component);
+            if(component.isVisible())
+            {
+                component.refresh(this);
+            }
         }
     }
 
