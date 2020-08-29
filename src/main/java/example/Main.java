@@ -4,6 +4,7 @@ import base.Component;
 import base.Specifications;
 import components.Button;
 import components.Frame;
+import components.Panel;
 import org.jsfml.graphics.Color;
 
 public class Main
@@ -17,13 +18,17 @@ public class Main
         component.setFillColor(Color.RED);
         component.setSize(100, 100);
         component.setLocation(50, 50);
-        component.setDirection(45);
-        frame.add(component);
+        component.setRotation(45);
 
         Button button = new Button();
         button.setSize(100, 100);
         button.setLocation(100, 100);
-        frame.add(button);
+
+        Panel panel = new Panel();
+        panel.setBounds(200, 50, 50, 50);
+        panel.add(component);
+        panel.add(button);
+        frame.add(panel);
 
         frame.showFrame();
     }

@@ -80,15 +80,7 @@ public class Frame extends RenderWindow {
 
     private Vector2i handleResize(Vector2i size)
     {
-        if(!size.equals(getSize()))
-        {
-            Specifications.CURRENT_SIZE = getSize();
-            for(Component component : components)
-            {
-                component.resize();
-            }
-            Specifications.PREVIOUS_SIZE = getSize();
-        }
+        Specifications.CURRENT_SIZE = getSize();
         return getSize();
     }
 
@@ -99,10 +91,9 @@ public class Frame extends RenderWindow {
         while(isOpen())
         {
             frameStart();
-            refreshComponents();
-
             //Size Handling
             windowSize = handleResize(windowSize);
+            refreshComponents();
 
             frameEnd();
         }

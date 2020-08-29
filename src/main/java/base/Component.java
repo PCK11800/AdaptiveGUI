@@ -75,7 +75,6 @@ public class Component extends RectangleShape {
     {
         this.x = x;
         this.y = y;
-        centerObject();
         setPosition(x, y);
     }
 
@@ -87,80 +86,39 @@ public class Component extends RectangleShape {
         setSize(size);
     }
 
-    public void resize()
+    public static final int TOP_LEFT = 0;
+    public static final int TOP_RIGHT = 2;
+    public static final int BOTTOM_LEFT = 4;
+    public static final int BOTTOM_RIGHT = 6;
+    public static final int X = 0;
+    public static final int Y = 1;
+    public float getCornerCoordinates(int corner, int type)
     {
         float[] scale = ObjectSizeHandler.scale();
-        setLocation(getX() * scale[0], getY() * scale[1]);
-        setSize(getWidth() * scale[0], getHeight() * scale[1]);
-    }
-
-    public float getCornerCoordinates(String corner, String type)
-    {
-        float cx, cy; //Center of square coordinates
-        float x, y; //Coordinates of a corner point of a square
-        float tempX, tempY;
-
-        cx = getX();
-        cy = getY();
-
-        if(corner.equals("topleft"))
-        {
-            x = getX() - getWidth()/2;
-            y = getY() - getHeight()/2;
+        int corner_type = corner + type;
+        float cornerCoordinates;
+        switch(corner_type){
+            case 0:
+            case 4:
+                cornerCoordinates = x * scale[0];
+                break;
+            case 1:
+            case 3:
+                cornerCoordinates = y * scale[1];
+                break;
+            case 2:
+            case 6:
+                cornerCoordinates = (x + width) * scale[0];
+                break;
+            case 5:
+            case 7:
+                cornerCoordinates = (y + height) * scale[1];
+                break;
+            default:
+                cornerCoordinates = -1;
+                break;
         }
-
-        else if(corner.equals("topright"))
-        {
-            x = getX() + getWidth()/2;
-            y = getY() - getHeight()/2;
-        }
-
-        else if(corner.equals("bottomleft"))
-        {
-            x = getX() - getWidth()/2;
-            y = getY() + getHeight()/2;
-        }
-
-        else if(corner.equals("bottomright"))
-        {
-            x = getX() + getWidth()/2;
-            y = getY() + getHeight()/2;
-        }
-
-        else
-        {
-            x = 0;
-            y = 0;
-        }
-
-        tempX = x - cx;
-        tempY = y - cy;
-
-        float rotatedX =
-                (tempX * (float)Math.cos(Math.toRadians(direction)))
-                - (tempY * (float)Math.sin(Math.toRadians(direction)));
-
-        float rotatedY =
-                (tempX * (float)Math.sin(Math.toRadians(direction)))
-                + (tempY * (float)Math.cos(Math.toRadians(direction)));
-
-        x = rotatedX + cx;
-        y = rotatedY + cy;
-
-        if(type.equals("x"))
-        {
-            return x;
-        }
-
-        else if(type.equals("y"))
-        {
-            return y;
-        }
-
-        else
-        {
-            return 0;
-        }
+        return cornerCoordinates;
     }
 
     /**
@@ -171,14 +129,14 @@ public class Component extends RectangleShape {
     {
         float x1, y1, x2, y2, x3, y3, x4, y4;
 
-        x1 = this.getCornerCoordinates("topleft", "x");
-        y1 = this.getCornerCoordinates("topleft", "y") * -1;
-        x2 = this.getCornerCoordinates("topright", "x");
-        y2 = this.getCornerCoordinates("topright", "y") * -1;
-        x3 = this.getCornerCoordinates("bottomleft", "x");
-        y3 = this.getCornerCoordinates("bottomleft", "y") * -1;
-        x4 = this.getCornerCoordinates("bottomright", "x");
-        y4 = this.getCornerCoordinates("bottomright", "y") * -1;
+        x1 = getCornerCoordinates(TOP_LEFT, X);
+        y1 = getCornerCoordinates(TOP_LEFT, Y) * -1;
+        x2 = getCornerCoordinates(TOP_RIGHT, X);
+        y2 = getCornerCoordinates(TOP_RIGHT, Y) * -1;
+        x3 = getCornerCoordinates(BOTTOM_LEFT, X);
+        y3 = getCornerCoordinates(BOTTOM_LEFT, Y) * -1;
+        x4 = getCornerCoordinates(BOTTOM_RIGHT, X);
+        y4 = getCornerCoordinates(BOTTOM_RIGHT, Y) * -1;
 
         //Lines of tank hull
         Line2D top = new Line2D.Float(x1, y1, x2, y2);
@@ -186,7 +144,7 @@ public class Component extends RectangleShape {
         Line2D left = new Line2D.Float(x1, y1, x3, y3);
         Line2D right = new Line2D.Float(x2, y2, x4, y4);
 
-        Line2D linesArray[] = new Line2D[4];
+        Line2D[] linesArray = new Line2D[4];
         linesArray[0] = top;
         linesArray[1] = bottom;
         linesArray[2] = left;
@@ -197,17 +155,14 @@ public class Component extends RectangleShape {
 
     public boolean contains(float x, float y)
     {
-        float topLeftCorner_x = getCornerCoordinates("topleft", "x");
-        float topLeftCorner_y = getCornerCoordinates("topleft", "y");
-        float bottomRightCorner_x = getCornerCoordinates("bottomright", "x");
-        float bottomRightCorner_y = getCornerCoordinates("bottomright", "y");
+        float topLeftCorner_x = getCornerCoordinates(TOP_LEFT, X);
+        float topLeftCorner_y = getCornerCoordinates(TOP_LEFT, Y);
+        float bottomRightCorner_x = getCornerCoordinates(BOTTOM_RIGHT, X);
+        float bottomRightCorner_y = getCornerCoordinates(BOTTOM_RIGHT, Y);
 
         if(x >= topLeftCorner_x && x <= bottomRightCorner_x)
         {
-            if(y <= bottomRightCorner_y && y >= topLeftCorner_y)
-            {
-                return true;
-            }
+            return y <= bottomRightCorner_y && y >= topLeftCorner_y;
         }
         return false;
     }
