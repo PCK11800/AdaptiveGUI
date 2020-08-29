@@ -9,15 +9,11 @@ import java.util.ArrayList;
 public class Panel extends Component {
 
     private ArrayList<Component> components = new ArrayList<>();
-    private int x, y, width, height;
     private boolean updated = false;
 
-    public void setBounds(int x, int y, int width, int height)
+    public Panel()
     {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+        setFillColor(Specifications.TRANSPARENT);
     }
 
     public void add(Component component)
@@ -40,6 +36,7 @@ public class Panel extends Component {
 
         for(Component component : components)
         {
+            frame.draw(this);
             component.refresh(frame);
         }
     }
@@ -48,7 +45,7 @@ public class Panel extends Component {
     {
         for(Component component : components)
         {
-            component.setLocation(component.getX() + x, component.getY() + y);
+            component.setPosition(component.getX() + getX(), component.getY() + getY());
         }
         updated = true;
     }

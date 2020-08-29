@@ -48,13 +48,6 @@ public class Button extends Component {
         this.onClick = color;
     }
 
-    public void setOutline(Color color, float width)
-    {
-        this.borderColor = color;
-        setOutlineColor(color);
-        setOutlineThickness(width);
-    }
-
     private void handleButton(Frame frame)
     {
         Vector2i mousePos = Mouse.getPosition(frame);
@@ -64,7 +57,7 @@ public class Button extends Component {
             {
                 if(action != null)
                 {
-                    if(pressed == false)
+                    if(!pressed)
                     {
                         action.run();
                         pressed = true;

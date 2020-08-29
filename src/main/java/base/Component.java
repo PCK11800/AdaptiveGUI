@@ -1,6 +1,7 @@
 package base;
 
 import components.Frame;
+import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RectangleShape;
 import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2f;
@@ -13,10 +14,17 @@ import java.nio.file.Path;
 
 public class Component extends RectangleShape {
 
-    protected float x, y, width, height, xCenter, yCenter, direction;
+    protected float width, height, xCenter, yCenter, direction;
     protected Texture texture;
     protected String texturePath;
     protected boolean isVisible = true; //Default true
+
+    public static final int TOP_LEFT = 0;
+    public static final int TOP_RIGHT = 2;
+    public static final int BOTTOM_LEFT = 4;
+    public static final int BOTTOM_RIGHT = 6;
+    public static final int X = 0;
+    public static final int Y = 1;
 
     public void setTexture(String texturePath)
     {
@@ -51,7 +59,7 @@ public class Component extends RectangleShape {
     /**
      * Rotates the object to a specific direction.
      * Direction is from 0 to 360 starting north.
-     * @param direction
+     * @param direction Direction in which the top of the component is facing
      */
     @Override
     public void setRotation(float direction)
@@ -71,27 +79,20 @@ public class Component extends RectangleShape {
         super.setRotation(direction);
     }
 
-    public void setLocation(float x, float y)
-    {
-        this.x = x;
-        this.y = y;
-        setPosition(x, y);
-    }
-
     public void setSize(float width, float height)
     {
         Vector2f size = new Vector2f(width, height);
         this.width = width;
         this.height = height;
-        setSize(size);
+        super.setSize(size);
     }
 
-    public static final int TOP_LEFT = 0;
-    public static final int TOP_RIGHT = 2;
-    public static final int BOTTOM_LEFT = 4;
-    public static final int BOTTOM_RIGHT = 6;
-    public static final int X = 0;
-    public static final int Y = 1;
+    public void setBounds(float x, float y, float width, float height)
+    {
+        setPosition(x, y);
+        setSize(width, height);
+    }
+
     public float getCornerCoordinates(int corner, int type)
     {
         float[] scale = ObjectSizeHandler.scale();
@@ -100,19 +101,19 @@ public class Component extends RectangleShape {
         switch(corner_type){
             case 0:
             case 4:
-                cornerCoordinates = x * scale[0];
+                cornerCoordinates = getX() * scale[0];
                 break;
             case 1:
             case 3:
-                cornerCoordinates = y * scale[1];
+                cornerCoordinates = getY() * scale[1];
                 break;
             case 2:
             case 6:
-                cornerCoordinates = (x + width) * scale[0];
+                cornerCoordinates = (getX() + width) * scale[0];
                 break;
             case 5:
             case 7:
-                cornerCoordinates = (y + height) * scale[1];
+                cornerCoordinates = (getY() + height) * scale[1];
                 break;
             default:
                 cornerCoordinates = -1;
@@ -167,6 +168,11 @@ public class Component extends RectangleShape {
         return false;
     }
 
+    public void setOutline(Color color, float width)
+    {
+        setOutlineColor(color);
+        setOutlineThickness(width);
+    }
 
     public void draw(Frame f) { f.draw(this); }
 
@@ -180,13 +186,13 @@ public class Component extends RectangleShape {
         return getTexture().getSize().y;
     }
 
-    public float getX() { return x; }
+    public float getX() { return getPosition().x; }
 
-    public void setX(float x) { this.x = x; }
+    public void setX(float x) { setPosition(x, getPosition().y); }
 
-    public float getY(){ return y; }
+    public float getY(){ return getPosition().y; }
 
-    public void setY(float y) { this.y = y; }
+    public void setY(float y) { setPosition(getPosition().x, y); }
 
     public float getWidth() { return width; }
 

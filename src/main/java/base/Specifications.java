@@ -10,9 +10,10 @@ public class Specifications {
 
     public static Vector2i CURRENT_SIZE = null;
 
-    public static final Color DEFAULT_BACKGROUND_COLOR = new Color(255, 255, 255, 0);
+    public static final Color DEFAULT_BACKGROUND_COLOR = new Color(255, 255, 255, 255);
     public static final Color DARK_GRAY = new Color(32, 32, 32, 255);
     public static final Color WARM_WHITE = new Color(190, 190, 190, 255);
+    public static final Color TRANSPARENT = new Color(0, 0, 0, 0);
 
     //Button Defaults
     public static final Color DEFAULT_BUTTON_ONSCREEN = DARK_GRAY;

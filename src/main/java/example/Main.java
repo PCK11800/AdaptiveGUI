@@ -16,19 +16,30 @@ public class Main
 
         Component component = new Component();
         component.setFillColor(Color.RED);
-        component.setSize(100, 100);
-        component.setLocation(50, 50);
+        component.setBounds(50, 50, 100, 100);
         component.setRotation(45);
 
         Button button = new Button();
-        button.setSize(100, 100);
-        button.setLocation(100, 100);
+        button.setBounds(100, 100, 100, 100);
         button.setOutline(Specifications.WARM_WHITE, 3);
+        button.setPressed(new Runnable() {
+            @Override
+            public void run() {
+                if(component.getFillColor() == Color.GREEN) {
+                    component.setFillColor(Color.RED);
+                }
+                else{
+                    component.setFillColor(Color.GREEN);
+                }
+            }
+        });
 
         Panel panel = new Panel();
-        panel.setBounds(200, 50, 50, 50);
+        panel.setBounds(200, 50, 500, 500);
         panel.add(component);
         panel.add(button);
+        panel.setOutline(Specifications.WARM_WHITE, 3);
+        panel.setVisible(true);
         frame.add(panel);
 
         frame.showFrame();
