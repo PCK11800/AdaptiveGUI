@@ -18,7 +18,7 @@ public class Component extends RectangleShape {
     protected String texturePath;
     protected boolean isVisible = true; //Default true
 
-    public void setComponentTexture(String texturePath)
+    public void setTexture(String texturePath)
     {
         this.texturePath = texturePath;
         Path imagePath = FileSystems.getDefault().getPath(texturePath);
@@ -27,7 +27,7 @@ public class Component extends RectangleShape {
         {
             texture.loadFromFile(imagePath);
             texture.setSmooth(true);
-            setTexture(texture);
+            super.setTexture(texture);
 
             width = getTextureWidth();
             height = getTextureHeight();
@@ -53,7 +53,8 @@ public class Component extends RectangleShape {
      * Direction is from 0 to 360 starting north.
      * @param direction
      */
-    public void setDirection(float direction)
+    @Override
+    public void setRotation(float direction)
     {
         centerObject();
         this.direction = direction;
@@ -67,7 +68,7 @@ public class Component extends RectangleShape {
         {
             this.direction = this.direction + 360;
         }
-        setRotation(direction);
+        super.setRotation(direction);
     }
 
     public void setLocation(float x, float y)
