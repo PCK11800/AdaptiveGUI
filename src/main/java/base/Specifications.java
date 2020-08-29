@@ -18,5 +18,5 @@ public class Specifications {
     public static final Color DEFAULT_BUTTON_ONSCREEN = DARK_GRAY;
     public static final Color DEFAULT_BUTTON_ONHOVER = DARK_GRAY;
     public static final Color DEFAULT_BUTTON_ONCLICK = WARM_WHITE;
-    public static final float DEFAULT_BORDER_WIDTH = 1;
+    public static final float DEFAULT_BORDER_WIDTH = 3;
 }

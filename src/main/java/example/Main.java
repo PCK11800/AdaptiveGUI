@@ -23,6 +23,7 @@ public class Main
         Button button = new Button();
         button.setSize(100, 100);
         button.setLocation(100, 100);
+        button.setOutline(Specifications.WARM_WHITE, 3);
 
         Panel panel = new Panel();
         panel.setBounds(200, 50, 50, 50);
