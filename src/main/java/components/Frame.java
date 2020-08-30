@@ -2,6 +2,8 @@ package components;
 
 import base.Component;
 import base.Specifications;
+import org.jnativehook.GlobalScreen;
+import org.jnativehook.NativeHookException;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.Vector2i;
@@ -84,6 +86,15 @@ public class Frame extends RenderWindow {
         return getSize();
     }
 
+    private void handleClose()
+    {
+        try{
+            GlobalScreen.unregisterNativeHook();
+        } catch (NativeHookException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void refresh()
     {
         Vector2i windowSize = getSize();
@@ -97,5 +108,7 @@ public class Frame extends RenderWindow {
 
             frameEnd();
         }
+
+        handleClose();
     }
 }

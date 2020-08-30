@@ -1,10 +1,10 @@
 package example;
 
-import base.Component;
 import base.Specifications;
 import components.Button;
 import components.Frame;
 import components.Panel;
+import components.textfield.TextField;
 import org.jsfml.graphics.Color;
 
 public class Main
@@ -14,7 +14,7 @@ public class Main
         Frame frame = new Frame(1280, 720, "Test", 60);
         frame.setBackgroundColor(Specifications.DARK_GRAY);
 
-        Component component = new Component();
+        TextField component = new TextField();
         component.setFillColor(Color.RED);
         component.setBounds(50, 50, 100, 100);
         component.setRotation(45);
