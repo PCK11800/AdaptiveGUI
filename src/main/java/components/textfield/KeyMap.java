@@ -92,11 +92,7 @@ public class KeyMap{
         upperCaseMap.put(11, ")");
         upperCaseMap.put(12, "_");
         upperCaseMap.put(13, "+");
-<<<<<<< HEAD
         upperCaseMap.put(14, "\b");
-=======
-        upperCaseMap.put(14, "\r");
->>>>>>> master
 
         upperCaseMap.put(15, "    ");
         upperCaseMap.put(16, "Q");

@@ -37,14 +37,8 @@ public class TextFieldKeyboardListener implements NativeKeyListener {
         {
             isShift = true;
         }
-<<<<<<< HEAD
-
         String keyText = keyMap.handle(keyCode, isShift);
         textField.append(keyText);
         System.out.print(keyText);
-=======
-        textField.setText(keyMap.handle(keyCode, isShift));
-        System.out.print(keyMap.handle(keyCode, isShift));
->>>>>>> master
     }
 }

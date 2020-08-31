@@ -14,10 +14,7 @@ import java.util.logging.Logger;
 public class TextField extends Component {
 
     private Text content = new Text();
-<<<<<<< HEAD
     private StringBuilder content_str = new StringBuilder();
-=======
->>>>>>> master
     TextFieldKeyboardListener listener = new TextFieldKeyboardListener(this);
 
     public TextField()
@@ -41,7 +38,6 @@ public class TextField extends Component {
         content.setString(text);
     }
 
-<<<<<<< HEAD
     public void append(String str)
     {
         if(str.equals("\b"))
@@ -56,8 +52,6 @@ public class TextField extends Component {
         setText(content_str.toString());
     }
 
-=======
->>>>>>> master
     @Override
     public void refresh(Frame frame)
     {
