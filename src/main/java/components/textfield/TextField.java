@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 public class TextField extends Component {
 
     private Text content = new Text();
+    private StringBuilder content_str = new StringBuilder();
     TextFieldKeyboardListener listener = new TextFieldKeyboardListener(this);
 
     public TextField()
@@ -35,6 +36,20 @@ public class TextField extends Component {
         content.setColor(Specifications.WARM_WHITE);
         content.setFont(new Inconsolata());
         content.setString(text);
+    }
+
+    public void append(String str)
+    {
+        if(str.equals("\b"))
+        {
+            content_str.deleteCharAt(content_str.length() - 1);
+        }
+        else
+        {
+            content_str.append(str);
+        }
+
+        setText(content_str.toString());
     }
 
     @Override
