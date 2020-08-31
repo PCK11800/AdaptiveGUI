@@ -6,16 +6,18 @@ import components.Frame;
 import components.Panel;
 import components.textfield.TextField;
 import org.jsfml.graphics.Color;
+import tools.OSHandler.OSChecker;
 
 public class Main
 {
     public static void main(String[] args)
     {
+        OSChecker.handleLinux();
         Frame frame = new Frame(1280, 720, "Test", 60);
         frame.setBackgroundColor(Specifications.DARK_GRAY);
 
         TextField component = new TextField();
-        component.setFillColor(Color.RED);
+        component.setFillColor(Specifications.TRANSPARENT);
         component.setBounds(50, 50, 100, 100);
         component.setRotation(45);
 
