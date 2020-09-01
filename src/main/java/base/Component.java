@@ -9,6 +9,7 @@ import tools.ObjectSizeHandler;
 
 import java.awt.geom.Line2D;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
@@ -18,6 +19,7 @@ public class Component extends RectangleShape {
     protected Texture texture;
     protected String texturePath;
     protected boolean isVisible = true; //Default true
+    protected boolean isFocused = false; //Default false
 
     public static final int TOP_LEFT = 0;
     public static final int TOP_RIGHT = 2;
@@ -26,14 +28,12 @@ public class Component extends RectangleShape {
     public static final int X = 0;
     public static final int Y = 1;
 
-    public void setTexture(String texturePath)
+    public void setTexture(InputStream is)
     {
-        this.texturePath = texturePath;
-        Path imagePath = FileSystems.getDefault().getPath(texturePath);
         texture = new Texture();
         try
         {
-            texture.loadFromFile(imagePath);
+            texture.loadFromStream(is);
             texture.setSmooth(true);
             super.setTexture(texture);
 
@@ -220,6 +220,14 @@ public class Component extends RectangleShape {
     }
 
     public boolean isVisible() { return isVisible; }
+
+    public boolean isFocused() {
+        return isFocused;
+    }
+
+    public void setFocused(boolean focused) {
+        isFocused = focused;
+    }
 
     public void refresh(Frame frame) { frame.draw(this); }
 }

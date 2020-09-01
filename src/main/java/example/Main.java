@@ -1,5 +1,6 @@
 package example;
 
+import base.Component;
 import base.Specifications;
 import components.Button;
 import components.Frame;
@@ -13,36 +14,32 @@ public class Main
     public static void main(String[] args)
     {
         OSChecker.handleLinux();
-        Frame frame = new Frame(1280, 720, "Test", 60);
+        Frame frame = new Frame(800, 500, "Test", 1000);
         frame.setBackgroundColor(Specifications.DARK_GRAY);
+
+        Panel panel = new Panel();
+        panel.setBounds(0, 0, 800, 500);
+        panel.setVisible(true);
+        frame.add(panel);
 
         TextField component = new TextField();
         component.setFillColor(Specifications.TRANSPARENT);
-        component.setBounds(50, 50, 100, 100);
-        component.setRotation(45);
-
-        Button button = new Button();
-        button.setBounds(100, 100, 100, 100);
-        button.setOutline(Specifications.WARM_WHITE, 3);
-        button.setPressed(new Runnable() {
-            @Override
-            public void run() {
-                if(component.getFillColor() == Color.GREEN) {
-                    component.setFillColor(Color.RED);
-                }
-                else{
-                    component.setFillColor(Color.GREEN);
-                }
-            }
-        });
-
-        Panel panel = new Panel();
-        panel.setBounds(200, 50, 500, 500);
+        component.setBounds(0, 0, 400, 400);
+        component.setOutline(Specifications.WARM_WHITE, 1);
+        component.setFontSize(15);
         panel.add(component);
-        panel.add(button);
-        panel.setOutline(Specifications.WARM_WHITE, 3);
-        panel.setVisible(true);
-        frame.add(panel);
+
+        TextField component2 = new TextField();
+        component2.setFillColor(Specifications.TRANSPARENT);
+        component2.setBounds(400, 0, 400, 400);
+        component2.setOutline(Specifications.WARM_WHITE, 1);
+        component2.setFontSize(15);
+        panel.add(component2);
+
+        Component component3 = new Component();
+        component3.setFillColor(Color.RED);
+        component3.setBounds(0, 400, 800, 100);
+        panel.add(component3);
 
         frame.showFrame();
     }

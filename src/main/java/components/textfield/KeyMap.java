@@ -56,7 +56,7 @@ public class KeyMap{
         lowerCaseMap.put(37, "k");
         lowerCaseMap.put(38, "l");
         lowerCaseMap.put(39, ";");
-        lowerCaseMap.put(40, "\"");
+        lowerCaseMap.put(40, "'");
         lowerCaseMap.put(28, "\n");
 
         lowerCaseMap.put(42, ""); //Shift
@@ -120,8 +120,8 @@ public class KeyMap{
         upperCaseMap.put(37, "K");
         upperCaseMap.put(38, "L");
         upperCaseMap.put(39, ":");
-        upperCaseMap.put(40, "'");
-        upperCaseMap.put(28, "\b");
+        upperCaseMap.put(40, "\"");
+        upperCaseMap.put(28, "\n");
 
         upperCaseMap.put(42, ""); //Shift
         upperCaseMap.put(44, "Z");

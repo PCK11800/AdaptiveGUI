@@ -20,4 +20,10 @@ public class Specifications {
     public static final Color DEFAULT_BUTTON_ONHOVER = DARK_GRAY;
     public static final Color DEFAULT_BUTTON_ONCLICK = WARM_WHITE;
     public static final float DEFAULT_BORDER_WIDTH = 3;
+
+    //TextField
+    public static boolean isCursor = false;
+    public static final int DEFAULT_FONT_SIZE = 16;
+    public static final Color DEFAULT_FONT_COLOR = WARM_WHITE;
+
 }

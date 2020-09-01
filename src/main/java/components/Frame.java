@@ -5,11 +5,14 @@ import base.Specifications;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 import org.jsfml.graphics.Color;
+import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.graphics.View;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.VideoMode;
 import org.jsfml.window.WindowStyle;
 import org.jsfml.window.event.Event;
+import org.jsfml.window.event.SizeEvent;
 import tools.OSHandler.OSChecker;
 
 import java.io.File;

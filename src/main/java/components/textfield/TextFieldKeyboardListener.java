@@ -33,12 +33,14 @@ public class TextFieldKeyboardListener implements NativeKeyListener {
 
     private void handleInput(int keyCode)
     {
-        if(keyCode == 42)
+        if(textField.isFocused())
         {
-            isShift = true;
+            if(keyCode == 42)
+            {
+                isShift = true;
+            }
+            String keyText = keyMap.handle(keyCode, isShift);
+            textField.append(keyText);
         }
-        String keyText = keyMap.handle(keyCode, isShift);
-        textField.append(keyText);
-        System.out.print(keyText);
     }
 }
