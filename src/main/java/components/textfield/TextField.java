@@ -118,7 +118,6 @@ public class TextField extends Component {
             }
             content_str.append(input);
         }
-
         setText(content_str.toString());
     }
 

@@ -6,14 +6,16 @@ import org.jsfml.system.Vector2i;
 import org.jsfml.window.Mouse;
 
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class TextMouseCursor extends Component {
 
     public TextMouseCursor()
     {
-        InputStream is = getClass()
-                .getClassLoader().getResourceAsStream("cursors/textcursor.png");
-        setTexture(is);
+        Path path = Paths.get(getClass()
+                .getClassLoader().getResource("cursors/textcursor.png").getPath());
+        setTexture(path);
         setSize(15, 15);
     }
 

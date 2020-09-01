@@ -28,12 +28,12 @@ public class Component extends RectangleShape {
     public static final int X = 0;
     public static final int Y = 1;
 
-    public void setTexture(InputStream is)
+    public void setTexture(Path path)
     {
         texture = new Texture();
         try
         {
-            texture.loadFromStream(is);
+            texture.loadFromFile(path);
             texture.setSmooth(true);
             super.setTexture(texture);
 
