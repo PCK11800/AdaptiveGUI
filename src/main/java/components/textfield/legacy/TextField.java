@@ -9,9 +9,12 @@ import org.jnativehook.NativeHookException;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.Font;
 import org.jsfml.graphics.Text;
+import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Mouse;
+import tools.Maths;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,11 +23,15 @@ public class TextField extends Component {
 
     private Text content = new Text();
     private StringBuilder content_str = new StringBuilder();
+    private StringBuilder content_raw = new StringBuilder();
 
     private int fontSize = Specifications.DEFAULT_FONT_SIZE;
     private Color fontColor = Specifications.DEFAULT_FONT_COLOR;
     private TextMouseCursor textMouseCursor = new TextMouseCursor();
     private boolean isCursor = false;
+    private float spaceWidth, spaceHeight;
+
+    private Component caret = new Component();
 
     private static ArrayList<TextField> textFieldArrayList = new ArrayList<>();
 
@@ -40,6 +47,7 @@ public class TextField extends Component {
             logger.setLevel(Level.OFF);
 
             setContent();
+            getSpaceDimensions();
         } catch (NativeHookException e) {
             e.printStackTrace();
         }
@@ -102,6 +110,7 @@ public class TextField extends Component {
         if(input.equals("\b") && content_str.length() > 0)
         {
             content_str.deleteCharAt(content_str.length() - 1);
+            content_raw.deleteCharAt(content_raw.length() - 1);
         }
         else
         {
@@ -114,13 +123,36 @@ public class TextField extends Component {
                 content_str.delete(content_str.toString().lastIndexOf(" "), content_str.toString().length());
                 content_str.append("\n");
                 content_str.append(lastWord);
-
             }
             content_str.append(input);
+            content_raw.append(input);
         }
         setText(content_str.toString());
     }
 
+    public void loadTextFromFile(File file)
+    {
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            int num = 0;
+            char c;
+            while((num = reader.read()) != -1)
+            {
+                c = (char) num;
+                append(Character.toString(c));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getSpaceDimensions()
+    {
+        content.setString("H");
+        spaceWidth = content.getLocalBounds().width;
+        spaceHeight = content.getLocalBounds().height;
+        content.setString("");
+    }
 
     public int getFontSize() {
         return fontSize;
@@ -143,12 +175,51 @@ public class TextField extends Component {
         return isCursor;
     }
 
+    public String getContent()
+    {
+        return content_raw.toString();
+    }
+
+    public void resize()
+    {
+        if(content.getLocalBounds().height > getHeight())
+        {
+            setHeight(content.getLocalBounds().height);
+        }
+    }
+
+    private void setCaret(Frame frame)
+    {
+        float lastCharacterPosition_x = 0;
+        float lastCharacterPosition_y = 0;
+
+        if(content_str.length() > 0)
+        {
+             lastCharacterPosition_x = content.findCharacterPos(content.getString().length() - 1).x;
+             lastCharacterPosition_y = content.findCharacterPos(content.getString().length() - 1).y;
+        }
+
+        float caretHeight = 10;
+        float caretPosition_x = lastCharacterPosition_x + spaceWidth;
+        float caretPosition_y = lastCharacterPosition_y + (caretHeight / 2);
+        caret.setBounds(caretPosition_x, caretPosition_y, 2, caretHeight);
+        caret.setFillColor(Specifications.WARM_WHITE);
+
+        if(isFocused)
+        {
+            frame.draw(caret);
+        }
+    }
+
     @Override
     public void refresh(Frame frame)
     {
+        resize();
         setCursor(frame);
         handleFocus(frame);
-        frame.draw(this);
         frame.draw(content);
+        setCaret(frame);
+
+        frame.draw(this);
     }
 }
