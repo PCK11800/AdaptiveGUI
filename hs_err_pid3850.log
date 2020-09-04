@@ -36,7 +36,7 @@ J 577  org.jsfml.graphics.SFMLNativeDrawer.nativeDrawDrawable(Lorg/jsfml/graphic
 J 603 c1 org.jsfml.graphics.SFMLNativeDrawer.draw(Lorg/jsfml/graphics/Drawable;Lorg/jsfml/graphics/RenderTarget;Lorg/jsfml/graphics/RenderStates;)V (28 bytes) @ 0x00007ff180ec37fc [0x00007ff180ec3740+0x00000000000000bc]
 j  org.jsfml.graphics.Text.draw(Lorg/jsfml/graphics/RenderTarget;Lorg/jsfml/graphics/RenderStates;)V+15
 J 564 c1 org.jsfml.graphics.RenderWindow.draw(Lorg/jsfml/graphics/Drawable;)V (9 bytes) @ 0x00007ff180eb3744 [0x00007ff180eb3540+0x0000000000000204]
-j  components.textfield.TextField.refresh(Lcomponents/Frame;)V+10
+j  components.textarea.legacy.TextField.refresh(Lcomponents/Frame;)V+10
 J 666 c1 components.Panel.refresh(Lcomponents/Frame;)V (52 bytes) @ 0x00007ff180eddf24 [0x00007ff180edd700+0x0000000000000824]
 J 665 c1 components.Frame.refreshComponents()V (43 bytes) @ 0x00007ff180edef34 [0x00007ff180ede9a0+0x0000000000000594]
 j  components.Frame.refresh()V+23

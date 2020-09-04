@@ -1,5 +1,6 @@
-package components.textfield;
+package components.textarea.keys;
 
+import components.textarea.surface.TextArea;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 

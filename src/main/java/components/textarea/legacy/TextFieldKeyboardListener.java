@@ -1,6 +1,6 @@
-package components.textfield.legacy;
+package components.textarea.legacy;
 
-import components.textfield.KeyMap;
+import components.textarea.keys.KeyMap;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 

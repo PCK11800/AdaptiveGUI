@@ -1,11 +1,10 @@
-package components.textfield;
+package components.textarea.surface;
 
 import base.Component;
 import components.Frame;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Mouse;
 
-import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 

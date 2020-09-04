@@ -1,9 +1,11 @@
-package components.textfield;
+package components.textarea.surface;
 
 import base.Component;
 import base.Specifications;
 import components.Frame;
-import components.textfield.fonts.Inconsolata;
+import components.textarea.fonts.Inconsolata;
+import components.textarea.keys.KeyListener;
+import components.textarea.sheet.Sheet;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 import org.jsfml.graphics.Color;
@@ -39,13 +41,13 @@ public class TextArea extends Component {
         textAreaArrayList.add(this);
         initKeyListener();
         setContent();
-        setDimension();
     }
 
     @Override
     public void setBounds(float x, float y, float width, float height)
     {
         super.setBounds(x, y, width, height);
+        setDimension();
     }
 
     private void initKeyListener()
@@ -75,6 +77,7 @@ public class TextArea extends Component {
         spaceWidth = content.getLocalBounds().width;
         spaceHeight = content.getLocalBounds().height;
         content.setString("");
+        sheet = new Sheet((int) (getWidth() / spaceWidth));
     }
 
     private void updateCursor(Frame frame)
@@ -118,12 +121,18 @@ public class TextArea extends Component {
         content.setPosition(getPosition());
         content.setCharacterSize(fontSize);
         content.setColor(fontColor);
-
+        content.setString(sheet.toString());
     }
 
     public void append(char character)
     {
-
+        if(character == '\b'){
+            sheet.pop(sheet.caretPosition, sheet.currentRow);
+        }
+        else{
+            sheet.push(character, sheet.caretPosition, sheet.currentRow);
+        }
+        setText(sheet);
     }
 
     public void handleCaret(Frame frame)

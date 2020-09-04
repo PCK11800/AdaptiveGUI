@@ -1,10 +1,10 @@
-package components.textfield.legacy;
+package components.textarea.legacy;
 
 import base.Component;
 import base.Specifications;
 import components.Frame;
-import components.textfield.TextMouseCursor;
-import components.textfield.fonts.Inconsolata;
+import components.textarea.surface.TextMouseCursor;
+import components.textarea.fonts.Inconsolata;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 import org.jsfml.graphics.Color;

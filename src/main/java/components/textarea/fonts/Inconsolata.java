@@ -1,4 +1,4 @@
-package components.textfield.fonts;
+package components.textarea.fonts;
 
 import java.io.IOException;
 import java.io.InputStream;
