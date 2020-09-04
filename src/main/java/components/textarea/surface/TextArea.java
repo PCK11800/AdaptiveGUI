@@ -124,34 +124,52 @@ public class TextArea extends Component {
         content.setString(sheet.toString());
     }
 
-    public void append(char character)
+    public void append(String input)
     {
-        if(character == '\b'){
-            sheet.pop(sheet.caretPosition, sheet.currentRow);
+        if(input.equals("UP_ARROW") || input.equals("DOWN_ARROW") || input.equals("LEFT_ARROW") || input.equals("RIGHT_ARROW"))
+        {
+            if(input.equals("UP_ARROW")){
+                sheet.moveCaretUp();
+            }
+            if(input.equals("DOWN_ARROW")){
+                sheet.moveCaretDown();
+            }
+            if(input.equals("LEFT_ARROW")){
+                sheet.moveCaretLeft();
+            }
+            if(input.equals("RIGHT_ARROW")){
+                sheet.moveCaretRight();
+            }
         }
         else{
-            sheet.push(character, sheet.caretPosition, sheet.currentRow);
+            char keyChar = input.charAt(0);
+            if(keyChar == '\b'){
+                sheet.pop(sheet.getCaretPosition(), sheet.getCurrentRow());
+            }
+            else{
+                sheet.push(keyChar, sheet.getCaretPosition(), sheet.getCurrentRow());
+            }
+            setText(sheet);
         }
-        setText(sheet);
+
+        System.out.println(sheet.getCaretPosition() + ", " + sheet.getCurrentRow());
     }
 
     public void handleCaret(Frame frame)
     {
-        /*
-        float caret_x = column * spaceWidth;
-        float caret_y = row * spaceHeight;
-        caret.setBounds(caret_x, caret_y + 5, 2, 10);
+        int[] caretPosition = sheet.getCaretPixelPosition(spaceWidth, spaceHeight);
+        caret.setBounds(caretPosition[0], caretPosition[1], 2, 10);
         caret.setFillColor(Specifications.WARM_WHITE);
         if(isFocused)
         {
             frame.draw(caret);
         }
-        */
     }
 
     @Override
     public void refresh(Frame frame)
     {
+        sheet.resetCaret();
         handleFocus(frame);
         updateCursor(frame);
         handleCaret(frame);

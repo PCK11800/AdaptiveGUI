@@ -11,8 +11,8 @@ public class Sheet {
     private int rowLength;
     private ArrayList<Line> rows = new ArrayList<>();
 
-    public int caretPosition = 0;
-    public int currentRow = 0;
+    private int caretPosition = 0;
+    private int currentRow = 0;
 
     public Sheet(int rowLength)
     {
@@ -30,12 +30,22 @@ public class Sheet {
      */
     public void push(Character c, int caretPosition, int row)
     {
-        // Adds a single character
-        Line line = rows.get(row);
-        line.add(caretPosition, c);
-        restructureRowsToFit(rows);
+        if(c != '\n'){
+            // Adds a single character
+            Line line = rows.get(row);
+            line.add(caretPosition, c);
+            restructureRowsToFit(rows);
 
-        this.caretPosition++;
+            this.caretPosition++;
+        }
+        else{
+            // If it's a new line, add a new line
+            rows.add(currentRow + 1, new Line());
+            rows.trimToSize();
+
+            this.currentRow++;
+            this.caretPosition = 0;
+        }
     }
 
     /*
@@ -85,6 +95,12 @@ public class Sheet {
         // Deletes and shift everything in row.
         Line line = rows.get(row);
 
+        if(caretPosition == 0)
+        {
+            line = rows.get(row - 1);
+            caretPosition = line.size() - 1;
+        }
+
         if(line.size() > 0){
             line.remove(caretPosition - 1);
             this.caretPosition--;
@@ -110,7 +126,7 @@ public class Sheet {
             if(i > 0)
             {
                 Line previousLine = rows.get(i - 1);
-                if(previousLine.getLast() == null){
+                if(previousLine.size() < rowLength){
                     previousLine.add(line.popFirst());
                 }
             }
@@ -151,5 +167,87 @@ public class Sheet {
     public int getLastRow()
     {
         return rows.size() - 1;
+    }
+
+    public int[] getCaretPixelPosition(float spaceWidth, float spaceHeight)
+    {
+        int[] caretPosition = new int[2];
+        caretPosition[0] = (int) (spaceWidth * this.caretPosition);
+        caretPosition[1] = (int) (spaceHeight * (this.currentRow + 1));
+        return caretPosition;
+    }
+
+    public void moveCaretUp()
+    {
+        if(currentRow > 0){
+            Line currentLine = rows.get(currentRow);
+            Line previousLine = rows.get(currentRow - 1);
+
+            if(currentLine.size() > previousLine.size()){
+                this.caretPosition = previousLine.size() - 1;
+            }
+
+            this.currentRow--;
+        }
+    }
+
+    public void moveCaretDown()
+    {
+        if(currentRow < rows.size() - 1)
+        {
+            Line currentLine = rows.get(currentRow);
+            Line nextLine = rows.get(currentRow + 1);
+
+            if(currentLine.size() > nextLine.size()) {
+                this.caretPosition = nextLine.size() - 1;
+            }
+
+            this.currentRow++;
+        }
+    }
+
+    public void moveCaretLeft()
+    {
+        if(caretPosition <= 0)
+        {
+            if(currentRow != 1){
+                this.currentRow--;
+                this.caretPosition = rows.get(currentRow - 1).size() - 1;
+            }
+        }
+        else{
+            this.caretPosition--;
+        }
+    }
+
+    public void moveCaretRight()
+    {
+        if(caretPosition >= rows.get(currentRow).size())
+        {
+            if(currentRow != rows.size() - 1)
+            {
+                this.currentRow++;
+                this.caretPosition = 0;
+            }
+        }
+        else{
+            this.caretPosition++;
+        }
+    }
+
+    public void resetCaret()
+    {
+        if(currentRow < 0){
+            currentRow = 0;
+            caretPosition = 0;
+        }
+    }
+
+    public int getCaretPosition() {
+        return caretPosition;
+    }
+
+    public int getCurrentRow() {
+        return currentRow;
     }
 }

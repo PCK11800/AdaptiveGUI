@@ -39,8 +39,7 @@ public class KeyListener implements NativeKeyListener {
         {
             String keyText = keyMap.handle(keyCode, isShift);
             if(!keyText.equals("")){
-                char keyChar = keyText.charAt(0);
-                textArea.append(keyChar);
+                textArea.append(keyText);
             }
         }
     }

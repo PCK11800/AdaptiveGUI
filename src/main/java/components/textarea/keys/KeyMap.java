@@ -75,6 +75,11 @@ public class KeyMap{
         lowerCaseMap.put(56, "");
         lowerCaseMap.put(3675, "");
         lowerCaseMap.put(57, " ");
+
+        lowerCaseMap.put(57419, "LEFT_ARROW");
+        lowerCaseMap.put(57416, "UP_ARROW");
+        lowerCaseMap.put(57424, "DOWN_ARROW");
+        lowerCaseMap.put(57421, "RIGHT_ARROW");
     }
 
     private void setUpperCase()
@@ -139,6 +144,11 @@ public class KeyMap{
         upperCaseMap.put(56, "");
         upperCaseMap.put(3675, "");
         upperCaseMap.put(57, " ");
+
+        upperCaseMap.put(57419, "LEFT_ARROW");
+        upperCaseMap.put(57416, "UP_ARROW");
+        upperCaseMap.put(57424, "DOWN_ARROW");
+        upperCaseMap.put(57421, "RIGHT_ARROW");
     }
 
     private boolean contains(Integer keyCode)
