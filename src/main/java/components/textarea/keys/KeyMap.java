@@ -30,7 +30,7 @@ public class KeyMap{
         lowerCaseMap.put(13, "=");
         lowerCaseMap.put(14, "\b");
 
-        lowerCaseMap.put(15, "    ");
+        lowerCaseMap.put(15, "\t");
         lowerCaseMap.put(16, "q");
         lowerCaseMap.put(17, "w");
         lowerCaseMap.put(18, "e");
@@ -57,7 +57,7 @@ public class KeyMap{
         lowerCaseMap.put(38, "l");
         lowerCaseMap.put(39, ";");
         lowerCaseMap.put(40, "'");
-        lowerCaseMap.put(28, "\n");
+        lowerCaseMap.put(28, "\n"); //Enter
 
         lowerCaseMap.put(42, ""); //Shift
         lowerCaseMap.put(44, "z");

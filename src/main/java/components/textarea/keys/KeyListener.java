@@ -3,25 +3,26 @@ package components.textfield;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
 
-public class TextFieldKeyboardListener implements NativeKeyListener {
+public class KeyListener implements NativeKeyListener {
 
-    private TextField textField;
+    private TextArea textArea;
     private KeyMap keyMap = new KeyMap();
     private boolean isShift = false;
 
-    public TextFieldKeyboardListener(TextField textField)
+    public KeyListener(TextArea textArea)
     {
-        this.textField = textField;
+        this.textArea = textArea;
     }
 
     @Override
     public void nativeKeyTyped(NativeKeyEvent nativeKeyEvent) {
-
+        //Do nothing
     }
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent nativeKeyEvent) {
         int keyCode = nativeKeyEvent.getKeyCode();
+        if(keyCode == 42){ isShift = true; }
         handleInput(keyCode);
     }
 
@@ -33,14 +34,13 @@ public class TextFieldKeyboardListener implements NativeKeyListener {
 
     private void handleInput(int keyCode)
     {
-        if(textField.isFocused())
+        if(textArea.isFocused())
         {
-            if(keyCode == 42)
-            {
-                isShift = true;
-            }
             String keyText = keyMap.handle(keyCode, isShift);
-            textField.append(keyText);
+            if(!keyText.equals("")){
+                char keyChar = keyText.charAt(0);
+                textArea.append(keyChar);
+            }
         }
     }
 }

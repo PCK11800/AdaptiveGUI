@@ -1,18 +1,16 @@
-package components.textfield;
+package components.textfield.legacy;
 
 import base.Component;
 import base.Specifications;
 import components.Frame;
+import components.textfield.TextMouseCursor;
 import components.textfield.fonts.Inconsolata;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 import org.jsfml.graphics.Color;
-import org.jsfml.graphics.Font;
 import org.jsfml.graphics.Text;
-import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Mouse;
-import tools.Maths;
 
 import java.io.*;
 import java.util.ArrayList;
