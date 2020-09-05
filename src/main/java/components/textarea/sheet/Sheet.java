@@ -33,7 +33,13 @@ public class Sheet {
         if(c != '\n'){
             // Adds a single character
             Line line = rows.get(row);
-            line.add(caretPosition, c);
+            if(caretPosition >= line.size())
+            {
+                line.add(c);
+            }
+            else{
+                line.add(caretPosition, c);
+            }
             restructureRowsToFit(rows);
 
             this.caretPosition++;
